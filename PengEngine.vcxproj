@@ -196,6 +196,7 @@ xcopy /y /d /s $(SolutionDir)resources $(OutDir)\resources\</Command>
     <ClCompile Include="src\demo\blob_entity.cpp" />
     <ClCompile Include="src\demo\demo_main.cpp" />
     <ClCompile Include="src\fractal\fractal.cpp" />
+    <ClCompile Include="src\fractal\fractal_entity.cpp" />
     <ClCompile Include="src\input\input_manager.cpp" />
     <ClCompile Include="src\input\key_state.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -221,6 +222,7 @@ xcopy /y /d /s $(SolutionDir)resources $(OutDir)\resources\</Command>
     <ClInclude Include="src\demo\blob_entity.h" />
     <ClInclude Include="src\demo\demo_main.h" />
     <ClInclude Include="src\fractal\fractal.h" />
+    <ClInclude Include="src\fractal\fractal_entity.h" />
     <ClInclude Include="src\input\input_manager.h" />
     <ClInclude Include="src\input\key_code.h" />
     <ClInclude Include="src\input\key_state.h" />
@@ -266,6 +268,8 @@ xcopy /y /d /s $(SolutionDir)resources $(OutDir)\resources\</Command>
   <ItemGroup>
     <None Include="resources\shaders\core\projection.vert" />
     <None Include="resources\shaders\core\unlit.frag" />
+    <None Include="src\fractal\shader\projection.vert" />
+    <None Include="src\fractal\shader\unlit.frag" />
     <None Include="src\libs\moodycamel\LICENSE.md" />
     <UpToDateCheckInput Include="resources\**\*" />
   </ItemGroup>

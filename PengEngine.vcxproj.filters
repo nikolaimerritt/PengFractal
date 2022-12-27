@@ -81,6 +81,9 @@
     <ClCompile Include="src\fractal\fractal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\fractal\fractal_entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\peng_engine.h">
@@ -230,10 +233,15 @@
     <ClInclude Include="src\fractal\fractal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\fractal\fractal_entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libs\moodycamel\LICENSE.md" />
     <None Include="resources\shaders\core\projection.vert" />
     <None Include="resources\shaders\core\unlit.frag" />
+    <None Include="src\fractal\shader\projection.vert" />
+    <None Include="src\fractal\shader\unlit.frag" />
   </ItemGroup>
 </Project>
