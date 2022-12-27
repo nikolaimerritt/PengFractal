@@ -17,7 +17,6 @@ PengEngine::PengEngine()
 	, _last_opengl_frametime(0)
 	, _last_draw_time(timing::clock::now())
 	, _glfw_window(nullptr)
-	, _render_thread("RenderThread")
 { }
 
 PengEngine& PengEngine::get()
@@ -67,11 +66,11 @@ void PengEngine::set_target_frametime(double frametime_ms) noexcept
 	_target_frametime = frametime_ms;
 }
 
-void PengEngine::set_resolution(const math::Vector2u& resolution) noexcept
+void PengEngine::set_resolution(const math::Vector2i& resolution) noexcept
 {
 	if (_executing)
 	{
-		Logger::get().log(LogSeverity::error, "Changing the resolution after starting PengEngine is not yet supported");
+		glfwSetWindowSize(_glfw_window, resolution.x, resolution.y);
 		return;
 	}
 
@@ -93,7 +92,7 @@ bool PengEngine::shutting_down() const
 	return false;
 }
 
-const math::Vector2u& PengEngine::resolution() const noexcept
+const math::Vector2i& PengEngine::resolution() const noexcept
 {
 	return _resolution;
 }
@@ -185,9 +184,7 @@ void PengEngine::start_opengl()
 		glDebugMessageCallback(handle_gl_debug_output, nullptr);
 	}
 
-	int32_t buffer_width;
-	int32_t buffer_height;
-	glfwGetFramebufferSize(_glfw_window, &buffer_width, &buffer_height);
+	glfwGetFramebufferSize(_glfw_window, &_resolution.x, &_resolution.y);
 	glfwMakeContextCurrent(_glfw_window);
 
 	glewExperimental = GL_TRUE;
@@ -196,8 +193,13 @@ void PengEngine::start_opengl()
 		throw std::logic_error("GLEW initialization failed");
 	}
 
-	glViewport(0, 0, buffer_width, buffer_height);
 	glEnable(GL_DEPTH_TEST);
+	glViewport(0, 0, _resolution.x, _resolution.y);
+	glfwSetFramebufferSizeCallback(_glfw_window, [](GLFWwindow*, int32_t width, int32_t height)
+	{
+		get()._resolution = math::Vector2i(width, height);
+		glViewport(0, 0, width, height);
+	});
 }
 
 void PengEngine::shutdown()
@@ -228,6 +230,8 @@ void PengEngine::tick_main()
 
 		_input_manager.tick();
 		_entity_manager.tick(delta_time);
+
+		_on_frame_end();
 	});
 }
 
@@ -242,6 +246,11 @@ void PengEngine::tick_render()
 		if (_input_manager[input::KeyCode::num_row_2].pressed())
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+
+		if (_input_manager[input::KeyCode::num_row_3].pressed())
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 		}
 	});
 }

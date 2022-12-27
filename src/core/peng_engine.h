@@ -1,7 +1,6 @@
 #pragma once
 
 #include <math/vector2.h>
-#include <threading/worker_thread.h>
 #include <input/input_manager.h>
 #include <utils/timing.h>
 #include <utils/event.h>
@@ -11,8 +10,9 @@
 // TODO: move opengl code into an RHI object
 class PengEngine
 {
-	DEFINE_EVENT(on_engine_initialized);
-	DEFINE_EVENT(on_frame_start);
+	DEFINE_EVENT(on_engine_initialized)
+	DEFINE_EVENT(on_frame_start)
+	DEFINE_EVENT(on_frame_end)
 
 public:
 	static PengEngine& get();
@@ -22,10 +22,10 @@ public:
 
 	void set_target_fps(double fps) noexcept;
 	void set_target_frametime(double frametime_ms) noexcept;
-	void set_resolution(const math::Vector2u& resolution) noexcept;
+	void set_resolution(const math::Vector2i& resolution) noexcept;
 
-	bool shutting_down() const;
-	const math::Vector2u& resolution() const noexcept;
+	[[nodiscard]] bool shutting_down() const;
+	[[nodiscard]] const math::Vector2i& resolution() const noexcept;
 
 	EntityManager& entity_manager() noexcept;
 	input::InputManager& input_manager() noexcept;
@@ -53,7 +53,7 @@ private:
 	bool _executing;
 	double _target_frametime;
 
-	math::Vector2u _resolution;
+	math::Vector2i _resolution;
 
 	double _last_frametime;
 	double _last_main_frametime;
@@ -62,7 +62,6 @@ private:
 	timing::clock::time_point _last_draw_time;
 
 	struct GLFWwindow* _glfw_window;
-	threading::WorkerThread _render_thread;
 
 	EntityManager _entity_manager;
 	input::InputManager _input_manager;
