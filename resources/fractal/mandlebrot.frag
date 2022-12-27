@@ -1,7 +1,6 @@
 #version 330 core
 
 in vec2 tex_coord;
-
 out vec4 frag_color;
 
 uniform vec4 background  = vec4(1);
@@ -9,7 +8,10 @@ uniform vec4 foreground = vec4(1);
 uniform uint max_iters = 80u;
 uniform float max_length = 2.0;
 
-uniform sampler2D color_tex;
+uniform float height = 1.0;
+uniform vec2 centre = vec2(0.0, 0.0);
+uniform float zoom = 0.5;
+uniform vec2 screen_centre = vec2(0.5, 0.5);
 
 vec2 complex_multiply(vec2 fst, vec2 snd) {
 	float x = fst.x * snd.x - fst.y * snd.y;
@@ -20,11 +22,14 @@ vec2 complex_multiply(vec2 fst, vec2 snd) {
 
 void main()
 {
-	vec2 iterate = tex_coord;
+	vec2 complex_point = (tex_coord - screen_centre - centre) / zoom;
+	complex_point = vec2(complex_point.x / height, complex_point.y);
+
+	vec2 iterate = complex_point;
 	uint iters = 0u;
 	
 	for (; iters < max_iters && length(iterate) <= max_length; iters++) {
-		iterate = complex_multiply(iterate, iterate) + tex_coord;
+		iterate = complex_multiply(iterate, iterate) + complex_point;
 	}
 
 	// 0 is convergent, 1 is divergent
