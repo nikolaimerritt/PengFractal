@@ -240,8 +240,7 @@
   <ItemGroup>
     <None Include="src\libs\moodycamel\LICENSE.md" />
     <None Include="resources\shaders\core\projection.vert" />
-    <None Include="resources\shaders\core\unlit.frag" />
-    <None Include="src\fractal\shader\projection.vert" />
-    <None Include="src\fractal\shader\unlit.frag" />
+    <None Include="resources\fractal\projection.vert" />
+    <None Include="resources\fractal\mandlebrot.frag" />
   </ItemGroup>
 </Project>

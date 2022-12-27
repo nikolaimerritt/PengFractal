@@ -24,6 +24,7 @@
     <ProjectGuid>{ea213f04-ae62-4f34-a963-cf22b11e4df6}</ProjectGuid>
     <RootNamespace>PengEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>PengFractal</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -266,10 +267,9 @@ xcopy /y /d /s $(SolutionDir)resources $(OutDir)\resources\</Command>
     <ClInclude Include="src\utils\vectools.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\fractal\mandlebrot.frag" />
     <None Include="resources\shaders\core\projection.vert" />
-    <None Include="resources\shaders\core\unlit.frag" />
-    <None Include="src\fractal\shader\projection.vert" />
-    <None Include="src\fractal\shader\unlit.frag" />
+    <None Include="resources\fractal\projection.vert" />
     <None Include="src\libs\moodycamel\LICENSE.md" />
     <UpToDateCheckInput Include="resources\**\*" />
   </ItemGroup>
