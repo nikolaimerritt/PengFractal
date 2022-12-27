@@ -1,6 +1,6 @@
-#include <demo/demo_main.h>
+#include <fractal/fractal.h>
 
 int main()
 {
-    return demo::demo_main();
+    return fractal::fractal_main();
 }
