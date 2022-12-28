@@ -22,6 +22,7 @@ namespace fractal {
 	private:
 		peng::shared_ref<const rendering::Mesh> _mesh;
 		peng::shared_ref<rendering::Material> _material;
+		double _time_elapsed;
 	};
 }
 
