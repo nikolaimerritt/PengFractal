@@ -1,16 +1,16 @@
-#version 330 core
+#version 400 core
 
 in vec2 tex_coord;
 out vec4 frag_color;
 
 uniform vec4 background  = vec4(1);
 uniform vec4 foreground = vec4(1);
-uniform uint max_iters = 500u;
-uniform double max_length = 2.lf;
+uniform uint max_iters = 80u;
+uniform double max_length = 2.0;
 
-uniform double height = 1.lf;
-uniform dvec2 complex_centre = dvec2(0.0, 0.0);
-uniform double zoom = 1.lf;
+uniform double height = 0.66666;
+uniform dvec2 complex_centre = dvec2(0.167653780957681, 0);
+uniform double zoom = 8977.51326;
 uniform dvec2 screen_centre = dvec2(0.5, 0.5);
 
 dvec2 complex_multiply(dvec2 fst, dvec2 snd) {
