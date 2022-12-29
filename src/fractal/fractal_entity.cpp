@@ -23,14 +23,14 @@ namespace fractal {
 	void FractalEntity::tick(double delta_time)
 	{
 		const Vector2i resolution = PengEngine::get().resolution();
-	/*	const double height = static_cast<double>(resolution.y) / static_cast<double>(resolution.x);
+		const float height = static_cast<double>(resolution.y) / static_cast<double>(resolution.x);
 		_material->set_parameter("height", height);
 
 		_zoom *= zoom_update(delta_time);
 		_material->set_parameter("zoom", float(_zoom));
 
 		_complex_centre += displacement(delta_time, _zoom);
-		_material->set_parameter("complex_centre", Vector2f(_complex_centre));*/
+		_material->set_parameter("complex_centre", Vector2f(_complex_centre));
 
 		Logger::get().log(LogSeverity::log, std::format("framerate {0} \t centre ({1}, {2}) \t zoom {3}", 
 			1.0 / delta_time,

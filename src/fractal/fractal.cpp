@@ -27,10 +27,10 @@ namespace fractal {
 
 			const auto material = peng::make_shared<Material>(shader);
 			
-			const auto background = Vector4f(0.9f, 0.3f, 0.4f, 1.0f);
-			material->set_parameter("background", background);
-			const auto foreground = Vector4(0.3f, 0.9f, 0.6f, 1.0f);
-			material->set_parameter("foreground", foreground);
+			//const auto background = Vector4f(0.9f, 0.3f, 0.4f, 1.0f);
+			//material->set_parameter("background", background);
+			//const auto foreground = Vector4(0.3f, 0.9f, 0.6f, 1.0f);
+			//material->set_parameter("foreground", foreground);
 
 			const Vector2f pos = Vector2f(0.0f, 0.0f);
 			PengEngine::get().entity_manager().create_entity<FractalEntity>(Primitives::fullscreen_quad(), material, pos);
@@ -39,7 +39,7 @@ namespace fractal {
 		});
 
 		PengEngine::get().set_target_fps(60.0f);
-		PengEngine::get().set_resolution(Vector2i(600, 400));
+		PengEngine::get().set_resolution(Vector2i(1280, 720));
 		PengEngine::get().start();
 		PengEngine::get().on_engine_initialized().unsubscribe(handle);
 
