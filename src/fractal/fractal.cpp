@@ -34,6 +34,7 @@ namespace fractal {
 		});
 
 		PengEngine::get().set_target_fps(60.0f);
+		PengEngine::get().set_resolution(Vector2i(600, 400));
 		PengEngine::get().start();
 		PengEngine::get().on_engine_initialized().unsubscribe(handle);
 

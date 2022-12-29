@@ -5,6 +5,9 @@
 #include <rendering/material.h>
 #include <rendering/mesh.h>
 #include <math/transform.h>
+#include <input/input_manager.h>
+#include <input/key_code.h>
+#include <input/key_state.h>
 
 namespace fractal {
 
@@ -22,7 +25,11 @@ namespace fractal {
 	private:
 		peng::shared_ref<const rendering::Mesh> _mesh;
 		peng::shared_ref<rendering::Material> _material;
-		double _time_elapsed;
+		float _zoom;
+		math::Vector2f _complex_centre;
+
+		math::Vector2f displacement(float delta_time, float zoom);
+		float zoom_update(float time_elapsed);
 	};
 }
 

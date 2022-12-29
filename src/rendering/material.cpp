@@ -1,5 +1,6 @@
 #include "material.h"
 
+#include <core/logger.h>
 #include <utils/functional.h>
 
 using namespace rendering;
@@ -25,21 +26,29 @@ void Material::set_parameter(GLint uniform_location, const Parameter& parameter)
 void Material::set_parameter(const std::string& parameter_name, const Parameter& parameter)
 {
 	const GLint parameter_index = _shader->get_uniform_location(parameter_name);
-	set_parameter(parameter_index, parameter);
+	if (parameter_index >= 0)
+	{
+		set_parameter(parameter_index, parameter);
+	}
+	else
+	{
+		Logger::get().logf(LogSeverity::error,
+			"Could not set parameter '%s' as no matching uniform could be found in the shader", parameter_name.c_str()
+		);
+	}
 }
 
 void Material::use()
 {
 	_num_bound_textures = 0;
 
+	_shader->use();
 	for (const auto& [location, parameter] : _set_parameters)
 	{
 		std::visit(functional::overload{
 			[&](const auto& x) { apply_parameter(location, x); }
 		}, parameter);
 	}
-
-	_shader->use();
 }
 
 peng::shared_ref<const Shader> Material::shader() const
@@ -144,9 +153,8 @@ void Material::apply_parameter(GLint location, const peng::shared_ref<const Text
 		throw std::runtime_error("Cannot bind more than 16 textures to a material");
 	}
 
-	const GLuint texture_slot = GL_TEXTURE0 + _num_bound_textures;
-	_num_bound_textures++;
+	const GLuint texture_slot = _num_bound_textures++;
 
+	texture->use(GL_TEXTURE0 + texture_slot);
 	glUniform1i(location, texture_slot);
-	texture->use(texture_slot);
 }

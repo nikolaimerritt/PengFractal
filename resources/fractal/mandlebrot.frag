@@ -5,11 +5,11 @@ out vec4 frag_color;
 
 uniform vec4 background  = vec4(1);
 uniform vec4 foreground = vec4(1);
-uniform uint max_iters = 80u;
+uniform uint max_iters = 500u;
 uniform float max_length = 2.0;
 
 uniform float height = 1.0;
-uniform vec2 centre = vec2(0.0, 0.0);
+uniform vec2 complex_centre = vec2(0.0, 0.0);
 uniform float zoom = 1.0;
 uniform vec2 screen_centre = vec2(0.5, 0.5);
 
@@ -22,7 +22,7 @@ vec2 complex_multiply(vec2 fst, vec2 snd) {
 
 void main()
 {
-	vec2 complex_point = (tex_coord - screen_centre - centre) * max_length / zoom;
+	vec2 complex_point = (tex_coord - screen_centre) * max_length / zoom + complex_centre;
 	complex_point = vec2(complex_point.x / height, complex_point.y);
 
 	vec2 iterate = complex_point;
