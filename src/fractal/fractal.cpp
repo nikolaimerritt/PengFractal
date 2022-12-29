@@ -4,6 +4,9 @@
 #include <rendering/shader.h>
 #include <iostream>
 #include <rendering/material.h>
+#include <core/logger.h>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 #include "fractal.h"
 #include "fractal_entity.h"
@@ -13,7 +16,9 @@ using namespace math;
 
 namespace fractal {
 	int fractal_main() {
+		std::cout.precision(std::numeric_limits<double>::max_digits10 + 1);
 		std::cout << "Hello fractal :))" << std::endl;
+		Logger::get().logf(LogSeverity::warning, "doubles enabled??? %d", GLEW_ARB_gpu_shader_fp64);
 
 		const int32_t handle = PengEngine::get().on_engine_initialized().subscribe([&] {
 			const peng::shared_ref<const Shader> shader = peng::make_shared<Shader>(

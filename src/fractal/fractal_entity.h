@@ -25,11 +25,11 @@ namespace fractal {
 	private:
 		peng::shared_ref<const rendering::Mesh> _mesh;
 		peng::shared_ref<rendering::Material> _material;
-		float _zoom;
-		math::Vector2f _complex_centre;
+		double _zoom;
+		math::Vector2d _complex_centre;
 
-		math::Vector2f displacement(float delta_time, float zoom);
-		float zoom_update(float time_elapsed);
+		math::Vector2d displacement(float delta_time, double zoom);
+		double zoom_update(float delta_time);
 	};
 }
 
