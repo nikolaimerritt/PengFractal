@@ -36,13 +36,19 @@ void main()
 	for (; iters < max_iters && length(iterate) <= max_length; iters++) {
 		iterate = complex_multiply(iterate, iterate) + complex_point;
 	}
-	
-	const float log_2 = log(2);
+
+	if (iters - max_iters <= 0.0001) {
+		frag_color = vec4(0);
+	}
+	else {
+		const float log_2 = log(2);
 		float log_complex_point = log(dot(complex_point, complex_point)) / 2;
-		float blend = 1 - log(log_complex_point / log_2) / log_2;
+		float blend = clamp(1 - log(log_complex_point / log_2) / log_2, 0, 1);
 
 		int bg_index = int(mod(iters, palette.length()));
 		int fg_index = int(mod(iters + 1, palette.length()));
 		vec3 colour = mix(palette[bg_index], palette[fg_index], blend);  
 		frag_color = vec4(colour, 1);
+	}
+	
 }
