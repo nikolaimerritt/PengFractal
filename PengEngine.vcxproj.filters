@@ -84,6 +84,12 @@
     <ClCompile Include="src\demo\demo_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\component.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\mesh_renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\fractal\fractal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -236,11 +242,22 @@
     <ClInclude Include="src\input\input_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\utils\concepts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\mesh_renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\libs\moodycamel\LICENSE.md" />
     <None Include="resources\shaders\core\projection.vert" />
     <None Include="resources\fractal\projection.vert" />
     <None Include="resources\fractal\mandlebrot.frag" />
+    <None Include="resources\shaders\core\fallback.frag" />
+    <None Include="resources\shaders\demo\rave.frag" />
   </ItemGroup>
 </Project>

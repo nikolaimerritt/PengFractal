@@ -7,6 +7,7 @@
 #include <common/common.h>
 #include <memory/shared_ref.h>
 #include <math/matrix4x4.h>
+#include <utils/concepts.h>
 
 #include "shader.h"
 #include "texture.h"
@@ -38,16 +39,29 @@ namespace rendering
 			peng::shared_ref<const Texture>
 		>;
 
+		explicit Material(peng::shared_ref<const Shader>&& shader);
 		explicit Material(const peng::shared_ref<const Shader>& shader);
 
-		void set_parameter(GLint uniform_location, const Parameter& parameter);
-		void set_parameter(const std::string& parameter_name, const Parameter& parameter);
-
 		void use();
+
+		template <utils::variant_member<Parameter> T>
+		void set_parameter(GLint uniform_location, const T& parameter)
+		{
+			set_parameter(uniform_location, Parameter(parameter));
+		}
+
+		template <utils::variant_member<Parameter> T>
+		void set_parameter(const std::string& parameter_name, const T& parameter)
+		{
+			set_parameter(parameter_name, Parameter(parameter));
+		}
 
 		[[nodiscard]] peng::shared_ref<const Shader> shader() const;
 
 	private:
+		void set_parameter(GLint uniform_location, const Parameter& parameter);
+		void set_parameter(const std::string& parameter_name, const Parameter& parameter);
+
 		void apply_parameter(GLint location, int32_t value);
 		void apply_parameter(GLint location, uint32_t value);
 		void apply_parameter(GLint location, float value);
@@ -72,6 +86,7 @@ namespace rendering
 
 		std::vector<std::tuple<GLint, Parameter>> _set_parameters;
 		common::unordered_map<GLint, size_t> _existing_parameters;
+		common::unordered_set<std::string> _bad_parameter_names;
 		uint32_t _num_bound_textures;
 	};
 }

@@ -204,7 +204,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;PENG_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -229,7 +229,7 @@ xcopy /y /d /s $(SolutionDir)resources $(OutDir)\resources\</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;PENG_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -259,7 +259,7 @@ xcopy /y /d /s $(SolutionDir)resources $(OutDir)\resources\</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;NO_LOGGING;NO_STATS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;PENG_MASTER;NO_LOGGING;NO_STATS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -284,6 +284,8 @@ xcopy /y /d /s $(SolutionDir)resources $(OutDir)\resources\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\mesh_renderer.cpp" />
+    <ClCompile Include="src\core\component.cpp" />
     <ClCompile Include="src\core\logger.cpp" />
     <ClCompile Include="src\core\peng_engine.cpp" />
     <ClCompile Include="src\core\entity.cpp" />
@@ -312,6 +314,8 @@ xcopy /y /d /s $(SolutionDir)resources $(OutDir)\resources\</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\common\common.h" />
+    <ClInclude Include="src\components\mesh_renderer.h" />
+    <ClInclude Include="src\core\component.h" />
     <ClInclude Include="src\core\logger.h" />
     <ClInclude Include="src\core\peng_engine.h" />
     <ClInclude Include="src\core\entity.h" />
@@ -353,6 +357,7 @@ xcopy /y /d /s $(SolutionDir)resources $(OutDir)\resources\</Command>
     <ClInclude Include="src\threading\job.h" />
     <ClInclude Include="src\threading\thread_pool.h" />
     <ClInclude Include="src\threading\worker_thread.h" />
+    <ClInclude Include="src\utils\concepts.h" />
     <ClInclude Include="src\utils\event.h" />
     <ClInclude Include="src\utils\detail\final_act.h" />
     <ClInclude Include="src\utils\functional.h" />
@@ -365,11 +370,13 @@ xcopy /y /d /s $(SolutionDir)resources $(OutDir)\resources\</Command>
     <ClInclude Include="src\utils\vectools.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\shaders\core\fallback.frag" />
     <None Include="resources\fractal\mandlebrot.frag" />
     <None Include="resources\fractal\palette.frag" />
     <None Include="resources\fractal\rainbow.frag" />
     <None Include="resources\shaders\core\projection.vert" />
     <None Include="resources\fractal\projection.vert" />
+    <None Include="resources\shaders\demo\rave.frag" />
     <None Include="src\libs\moodycamel\LICENSE.md" />
     <UpToDateCheckInput Include="resources\**\*" />
   </ItemGroup>

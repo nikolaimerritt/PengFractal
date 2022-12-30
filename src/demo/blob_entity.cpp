@@ -3,7 +3,7 @@
 #include <entities/camera.h>
 
 using namespace math;
-using namespace entities;
+using namespace components;
 
 BlobEntity::BlobEntity(
 	const peng::shared_ref<const rendering::Mesh>& mesh,
@@ -11,18 +11,16 @@ BlobEntity::BlobEntity(
 	const Vector2f& pos
 )
 	: Entity(true)
-	, _mesh(mesh)
-	, _material(material)
-	, _transform(Vector3f(pos, 0), Vector3f::one(), Vector3f::zero())
-{ }
+	, _age(static_cast<float>(rand()) / static_cast<float>((RAND_MAX)))
+{
+	_transform = Transform(Vector3f(pos, pos.y), Vector3f::one(), Vector3f::zero());
+	_mesh_renderer = add_component<MeshRenderer>(mesh, material);
+}
 
 void BlobEntity::tick(double delta_time)
 {
-	const Matrix4x4f view_matrix = Camera::current() ? Camera::current()->view_matrix() : Matrix4x4f::identity();
+	Entity::tick(delta_time);
 
-	_transform.rotation += Vector3f(0.5, 1, 0) * static_cast<float>(delta_time);
-	_material->set_parameter("transform", view_matrix * _transform.to_matrix());
-
-	_material->use();
-	_mesh->render();
+	_age += static_cast<float>(delta_time);
+	_mesh_renderer->material()->set_parameter("time", _age);
 }

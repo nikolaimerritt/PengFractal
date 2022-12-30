@@ -3,7 +3,6 @@
 in vec2 tex_coord;
 out vec4 frag_color;
 
-
 uniform float height = 0.5625;
 uniform vec2 complex_centre = vec2(0, 0);
 uniform float zoom = 1;
@@ -24,9 +23,10 @@ const vec3 palette[6] = vec3[6](
 );
 
 const float max_length = 2.0;
-const uint max_iters = 1000;
+const uint max_iters = 5000;
 const vec2 screen_centre = vec2(0.5, 0.5);
 const vec4 background = vec4(0);
+const float blend_pow = 0.7;
 
 vec2 complex_multiply(vec2 fst, vec2 snd) {
 	float x = fst.x * snd.x - fst.y * snd.y;
@@ -53,7 +53,7 @@ void main()
 	else {
 		int fst_colour = int(mod(iters, palette.length()));
 		int snd_colour = int(mod(iters + 1, palette.length()));
-		float blend = length(iterate) / max_length;
+		float blend = pow(length(iterate) / max_length, blend_pow);
 		vec3 colour = mix(palette[fst_colour], palette[snd_colour], blend);  
 		frag_color = vec4(colour, 0);
 	}

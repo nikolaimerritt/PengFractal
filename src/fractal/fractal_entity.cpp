@@ -15,7 +15,7 @@ namespace fractal {
 		: Entity(true)
 		, _mesh(rendering::Primitives::fullscreen_quad()) 
 		, _material(material)
-		, _zoom(1.0)
+		, _zoom(0.1)
 		, _complex_centre(Vector2f(0, 0))
 	{ }
 
