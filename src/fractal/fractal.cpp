@@ -22,7 +22,7 @@ namespace fractal {
 		const int32_t handle = PengEngine::get().on_engine_initialized().subscribe([&] {
 			const peng::shared_ref<const Shader> shader = peng::make_shared<Shader>(
 				"resources/fractal/projection.vert",
-				"resources/fractal/palette.frag"
+				"resources/fractal/palette2.frag"
 			);
 
 			const auto material = peng::make_shared<Material>(shader);

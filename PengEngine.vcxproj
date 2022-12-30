@@ -366,6 +366,8 @@ xcopy /y /d /s $(SolutionDir)resources $(OutDir)\resources\</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\fractal\mandlebrot.frag" />
+    <None Include="resources\fractal\palette2.frag" />
+    <None Include="resources\fractal\rainbow2.frag" />
     <None Include="resources\shaders\core\projection.vert" />
     <None Include="resources\fractal\projection.vert" />
     <None Include="src\libs\moodycamel\LICENSE.md" />
