@@ -1,6 +1,7 @@
 #include "fractal_entity.h"
 #include <core/logger.h>
 #include <core/peng_engine.h>
+#include <rendering/primitives.h>
 #include <iostream>
 
 using namespace math;
@@ -9,15 +10,13 @@ using namespace input;
 namespace fractal {
 
 	FractalEntity::FractalEntity(
-		const peng::shared_ref<const rendering::Mesh>& mesh,
-		const peng::shared_ref<rendering::Material>& material,
-		const Vector2f& pos_px
+		const peng::shared_ref<rendering::Material>& material
 	)
 		: Entity(true)
-		, _mesh(mesh)
+		, _mesh(rendering::Primitives::fullscreen_quad()) 
 		, _material(material)
 		, _zoom(1.0)
-		, _complex_centre(Vector2d(0, 0))
+		, _complex_centre(Vector2f(0, 0))
 	{ }
 
 	void FractalEntity::tick(double delta_time)
@@ -43,32 +42,32 @@ namespace fractal {
 		_mesh->render();
 	}
 
-	Vector2d FractalEntity::displacement(float delta_time, double zoom) {
+	Vector2f FractalEntity::displacement(float delta_time, float zoom) {
 		const InputManager& input = PengEngine::get().input_manager();
-		Vector2d direction = Vector2d(0, 0);
+		Vector2f direction = Vector2f(0, 0);
 
 		if (input.get_key(KeyCode::w).is_down()) {
-			direction += Vector2d(0, 1);
+			direction += Vector2f(0, 1);
 		}
 		if (input.get_key(KeyCode::a).is_down()) {
-			direction += Vector2d(-1, 0);
+			direction += Vector2f(-1, 0);
 		}
 		if (input.get_key(KeyCode::s).is_down()) {
-			direction += Vector2d(0, -1);
+			direction += Vector2f(0, -1);
 		}
 		if (input.get_key(KeyCode::d).is_down()) {
-			direction += Vector2d(1, 0);
+			direction += Vector2f(1, 0);
 		}
 
 		if (direction.magnitude_sqr() < 0.0001) {
-			return Vector2d(0, 0);
+			return Vector2f(0, 0);
 		}
 
-		Vector2d scaled = direction /= (zoom * std::sqrt(direction.magnitude_sqr()));
+		Vector2f scaled = direction /= (zoom * std::sqrt(direction.magnitude_sqr()));
 		return scaled * delta_time;
 	}
 
-	double FractalEntity::zoom_update(float delta_time) {
+	float FractalEntity::zoom_update(float delta_time) {
 		const InputManager& input = PengEngine::get().input_manager();
 		float zoom = 1.0f;
 		if (input[KeyCode::q].is_down())

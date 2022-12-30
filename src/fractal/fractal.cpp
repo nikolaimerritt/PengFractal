@@ -15,30 +15,21 @@ using namespace rendering;
 using namespace math;
 
 namespace fractal {
+	char const* const FRAGMENT_SHADER = "palette.frag";
+
 	int fractal_main() {
 		std::cout.precision(std::numeric_limits<double>::max_digits10 + 1);
-		std::cout << "Hello fractal :))" << std::endl;
 
 		const int32_t handle = PengEngine::get().on_engine_initialized().subscribe([&] {
 			const peng::shared_ref<const Shader> shader = peng::make_shared<Shader>(
 				"resources/fractal/projection.vert",
-				"resources/fractal/palette2.frag"
+				std::format("resources/fractal/{0}", FRAGMENT_SHADER)
 			);
-
 			const auto material = peng::make_shared<Material>(shader);
-			
-			//const auto background = Vector4f(0.9f, 0.3f, 0.4f, 1.0f);
-			//material->set_parameter("background", background);
-			//const auto foreground = Vector4(0.3f, 0.9f, 0.6f, 1.0f);
-			//material->set_parameter("foreground", foreground);
-
-			const Vector2f pos = Vector2f(0.0f, 0.0f);
-			PengEngine::get().entity_manager().create_entity<FractalEntity>(Primitives::fullscreen_quad(), material, pos);
-
-			Logger::get().logf(LogSeverity::warning, "doubles enabled??? %d", GLEW_ARB_gpu_shader_fp64);
+			PengEngine::get().entity_manager().create_entity<FractalEntity>(material);
 		});
 
-		PengEngine::get().set_target_fps(60.0f);
+		PengEngine::get().set_target_fps(60);
 		PengEngine::get().set_resolution(Vector2i(1280, 720));
 		PengEngine::get().start();
 		PengEngine::get().on_engine_initialized().unsubscribe(handle);

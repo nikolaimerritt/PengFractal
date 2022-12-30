@@ -14,22 +14,18 @@ namespace fractal {
 	class FractalEntity : public Entity
 	{
 	public:
-		FractalEntity(
-			const peng::shared_ref<const rendering::Mesh>& mesh,
-			const peng::shared_ref<rendering::Material>& material,
-			const math::Vector2f& pos_px
-		);
+		FractalEntity(const peng::shared_ref<rendering::Material>& material);
 
 		virtual void tick(double delta_time) override;
 
 	private:
 		peng::shared_ref<const rendering::Mesh> _mesh;
 		peng::shared_ref<rendering::Material> _material;
-		double _zoom;
-		math::Vector2d _complex_centre;
+		float _zoom;
+		math::Vector2f _complex_centre;
 
-		math::Vector2d displacement(float delta_time, double zoom);
-		double zoom_update(float delta_time);
+		math::Vector2f displacement(float delta_time, float zoom);
+		float zoom_update(float delta_time);
 	};
 }
 
